@@ -78,10 +78,11 @@ int8_t i2c_master_init(i2c_port_t i2c_num,
     }
     m_i2c_num = i2c_num;
 
-    gpio_pullup_t sda_pullup = (sda_pullup_en) ? GPIO_PULLUP_ENABLE :
-                                                 GPIO_PULLUP_DISABLE;
-    gpio_pullup_t scl_pullup = (scl_pullup_en) ? GPIO_PULLUP_ENABLE :
-                                                 GPIO_PULLUP_DISABLE;
+    gpio_pullup_t sda_pullup = GPIO_PULLUP_DISABLE;
+    gpio_pullup_t scl_pullup = GPIO_PULLUP_DISABLE;
+    if (sda_pullup_en) sda_pullup = GPIO_PULLUP_ENABLE;
+    if (scl_pullup_en) scl_pullup = GPIO_PULLUP_ENABLE;
+
     i2c_config_t cfg = {
         .mode = I2C_MODE_MASTER,
         .sda_io_num = sda_io_num,
